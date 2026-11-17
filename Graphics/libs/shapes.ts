@@ -95,19 +95,58 @@ function smiley(radius: number) : twgl.Arrays {
     // HINT: You can use polar coordinates to define the positions of vertices,
     // using the radius and an angle. Then convert them to polar coordinates.
 
-    // Sample data for a single yellow triangle. Replace with your values.
-    positionData.push(0, 100);
-    positionData.push(-120, -100);
-    positionData.push(120, -100);
+    // Face: yellow circle made of triangles that share the center vertex
+    const segments = 48;
+    positionData.push(0, 0);
     colorData.push(0.9, 0.8, 0, 1);
-    colorData.push(0.9, 0.8, 0, 1);
-    colorData.push(0.9, 0.8, 0, 1);
+    for (let i = 0; i < segments; i++) {
+        const angle = (2 * Math.PI * i) / segments;
+        positionData.push(radius * Math.cos(angle), radius * Math.sin(angle));
+        colorData.push(0.9, 0.8, 0, 1);
+    }
+    for (let i = 0; i < segments; i++) {
+        indexData.push(0, 1 + i, 1 + ((i + 1) % segments));
+    }
 
-    indexData.push(0, 2, 1);
+    //& Eyes: two small black circles, each made of many triangles
+    const eyeRadius = radius * 0.12;                        
+    const eyeY = radius * 0.3;                              
+    for (const eyeX of [-radius * 0.35, radius * 0.35]) {   
+        // Index of this eye's center vertex
+        const center = positionData.length / 2;             
+        positionData.push(eyeX, eyeY);                      
+        colorData.push(0.1, 0.1, 0.1, 1);                   
+        for (let i = 0; i < segments; i++) {                
+            const angle = (2 * Math.PI * i) / segments;     
+            positionData.push(eyeX + eyeRadius * Math.cos(angle),   
+                              eyeY + eyeRadius * Math.sin(angle));  
+            colorData.push(0.1, 0.1, 0.1, 1);               
+        }                                                   
+        for (let i = 0; i < segments; i++) {                
+            indexData.push(center, center + 1 + i,          
+                           center + 1 + ((i + 1) % segments));      
+        }                                                   
+    }                                                       
 
-
-
-
+    //& Mouth: black curved band (lower part of a ring) made of many triangles
+    const mouthIn = radius * 0.5;                           
+    const mouthOut = radius * 0.62;                         
+    const mouthStart = Math.PI * 1.15;                      
+    const mouthEnd = Math.PI * 1.85;                        
+    const mouthSegments = 32;                               
+    const mouthFirst = positionData.length / 2;             
+    for (let i = 0; i <= mouthSegments; i++) {              
+        const angle = mouthStart + ((mouthEnd - mouthStart) * i) / mouthSegments; 
+        positionData.push(mouthIn * Math.cos(angle), mouthIn * Math.sin(angle));   
+        positionData.push(mouthOut * Math.cos(angle), mouthOut * Math.sin(angle)); 
+        colorData.push(0.1, 0.1, 0.1, 1);                   
+        colorData.push(0.1, 0.1, 0.1, 1);                   
+    }                                                       
+    for (let i = 0; i < mouthSegments; i++) {               
+        const k = mouthFirst + i * 2;                       
+        indexData.push(k, k + 1, k + 3);                    
+        indexData.push(k, k + 3, k + 2);                    
+    }                                                       
 
     // Build the final object with the arrays for positions, colors, and indices
     const arrays: twgl.Arrays = {
