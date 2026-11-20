@@ -2,9 +2,7 @@
  ~ Hecho por: Daniela Angulo - A01028153, basado en el código de Gilberto Echeverria
  ? El código dibuja la cara en 2d y aplica las transformaciones que pide el usuario
  ? por el menu.
- Img de referencia para la cara (keroppi): https://www.google.com/url?sa=t&source=web&rct=j&url=https%3A%2F%2Ftwinkleglory.com.
- au%2Fcollections%2Fkeroppi%3Fsrsltid%3DAYCX9vJBjUmXONW-siMtj5-b45_e4_HhAQDuCiAO4BaoIDriZOSzcLg5&ved=0CBcQjRxqFwoTCK
- i8xpfijZgDFQAAAAAdAAAAABA3&opi=89978449
+ Img de referencia para la cara (keroppi): https://www.google.com/url?sa=t&source=web&rct=j&url=https%3A%2F%2Ftwinkleglory.com.au%2Fcollections%2Fkeroppi%3Fsrsltid%3DAYCX9vJBjUmXONW-siMtj5-b45_e4_HhAQDuCiAO4BaoIDriZOSzcLg5&ved=0CBcQjRxqFwoTCKi8xpfijZgDFQAAAAAdAAAAABA3&opi=89978449
  */
 
 'use strict';
